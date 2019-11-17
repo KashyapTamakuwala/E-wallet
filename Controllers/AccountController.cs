@@ -173,6 +173,12 @@ namespace E_Wallet.Controllers
         {
             if (ModelState.IsValid)
             {
+                //
+                var xy = new Model1();
+                var ba = new Bank() { Account_Number = "abc10010", Phone_Number = "978456123", Balance = 100 };
+                xy.Banks.Add(ba);
+                xy.SaveChanges();
+                //
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.PhoneNumber };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 var s = Request.Form["rList"].ToString();
