@@ -68,7 +68,7 @@ namespace E_Wallet.Controllers
             }
         }
 
-        //
+        //  
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -91,11 +91,12 @@ namespace E_Wallet.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -150,7 +151,7 @@ namespace E_Wallet.Controllers
             }
         }
 
-        //
+        //                  
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -174,10 +175,10 @@ namespace E_Wallet.Controllers
             if (ModelState.IsValid)
             {
                 //
-                var xy = new Model1();
+              /*  var xy = new Model1();
                 var ba = new Bank() { Account_Number = "abc10010", Phone_Number = "978456123", Balance = 100 };
                 xy.Banks.Add(ba);
-                xy.SaveChanges();
+                xy.SaveChanges();*/
                 //
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.PhoneNumber };
                 var result = await UserManager.CreateAsync(user, model.Password);
