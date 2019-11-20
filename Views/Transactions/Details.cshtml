@@ -1,0 +1,42 @@
+﻿@model E_Wallet.Models.Transaction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transaction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction_Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction_Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TO_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TO_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Email }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

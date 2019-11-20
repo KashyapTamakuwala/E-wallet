@@ -102,3 +102,4 @@ D:\git\Wddnproject\E-wallet\obj\Debug\E-Wallet.csproj.CoreCompileInputs.cache
 D:\git\Wddnproject\E-wallet\obj\Debug\E-Wallet.csproj.CopyComplete
 D:\git\Wddnproject\E-wallet\obj\Debug\E-Wallet.dll
 D:\git\Wddnproject\E-wallet\obj\Debug\E-Wallet.pdb
+D:\git\Wddnproject\E-wallet\obj\Debug\E-Wallet.csprojAssemblyReference.cache

@@ -191,7 +191,13 @@ namespace E_Wallet.Controllers
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
-                    AddErrors(addr);
+                    using(var context= new Model1())
+                    {
+                        var Wt = new Wallet() { Email = model.Email, Balance = 0, Account_Number = null };
+                        context.Wallets.Add(Wt);
+                        context.SaveChanges();
+                    }
+                        AddErrors(addr);
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
