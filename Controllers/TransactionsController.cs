@@ -111,7 +111,7 @@ namespace E_Wallet.Controllers
         }
 
         // POST: Transactions/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {

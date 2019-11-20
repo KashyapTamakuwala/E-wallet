@@ -9,26 +9,23 @@ namespace E_Wallet.Controllers
     public class UserController : Controller
     {
         // GET: User
+        [Authorize(Roles= "Individual, Organization")]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: User/Details/5
-        public ActionResult Details(int id)
+        
+
+        // GET: User/Pay
+        public ActionResult Pay()
         {
             return View();
         }
 
-        // GET: User/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: User/Create
+        // POST: User/Pay
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Pay(FormCollection collection)
         {
             try
             {
@@ -42,15 +39,15 @@ namespace E_Wallet.Controllers
             }
         }
 
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
+        // GET: User/Load
+        public ActionResult Load()
         {
             return View();
         }
 
-        // POST: User/Edit/5
+        // POST: User/Load
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Load(FormCollection collection)
         {
             try
             {
@@ -64,15 +61,15 @@ namespace E_Wallet.Controllers
             }
         }
 
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        // GET: User/Link
+        public ActionResult Link()
         {
             return View();
         }
 
-        // POST: User/Delete/5
+        // POST: User/Link
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Link(FormCollection collection)
         {
             try
             {

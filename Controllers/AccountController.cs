@@ -183,7 +183,7 @@ namespace E_Wallet.Controllers
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.PhoneNumber };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 var s = Request.Form["rList"].ToString();
-
+                
                 if (result.Succeeded)
                 {
                     IdentityResult addr = await UserManager.AddToRoleAsync(user.Id, s);
