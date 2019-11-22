@@ -96,6 +96,9 @@ namespace E_Wallet.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    ApplicationUser us = UserManager.FindByName(model.UserName);
+                    string mail = us.Email;
+                    Session["mail"] = mail;
                     return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");

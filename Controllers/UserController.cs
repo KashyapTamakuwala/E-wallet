@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using E_Wallet.Models;
+using Microsoft.AspNet.Identity;
 
 namespace E_Wallet.Controllers
 {
     public class UserController : Controller
     {
+
+        private Model1 db = new Model1();
+
         // GET: User
-        [Authorize(Roles= "Individual, Organization")]
+        //[Authorize(Roles= "Individual, Organization")]
         public ActionResult Index()
         {
             return View();
@@ -25,18 +34,17 @@ namespace E_Wallet.Controllers
 
         // POST: User/Pay
         [HttpPost]
-        public ActionResult Pay(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Pay([Bind(Include = "Email,Transaction_Amount,TO_Email,SID")] Transaction transaction)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.Transactions.Add(transaction);
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(transaction);
         }
 
         // GET: User/Load
