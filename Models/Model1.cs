@@ -17,12 +17,13 @@ namespace E_Wallet.Models
         public Model1()
             : base("name=Model1")
         {
+           // Database.SetInitializer<Model1>(new DropCreateDatabaseAlways<Model1>());
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
-         public virtual DbSet<Bank> Banks { get; set; }
+        public virtual DbSet<Bank> Banks { get; set; }
         public virtual DbSet<Wallet> Wallets { get; set; }
         public virtual DbSet<Scheme> Schemes { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
@@ -62,6 +63,11 @@ namespace E_Wallet.Models
     public class Transaction
     {
         [Key]
+        [Required]
+        [Display(Name = "ID")]
+        public int ID { get; set; }
+
+
         [Required]
         [Display(Name = "Email")]
         public String Email { get; set; }

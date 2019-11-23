@@ -24,7 +24,7 @@ namespace E_Wallet.Controllers
 
         // GET: Transactions/Details/5
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -50,7 +50,7 @@ namespace E_Wallet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Email,Transaction_Amount,TO_Email,SID")] Transaction transaction)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Email,Transaction_Amount,TO_Email,SID")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace E_Wallet.Controllers
 
         // GET: Transactions/Edit/5
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -83,7 +83,7 @@ namespace E_Wallet.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Transaction_Amount,TO_Email,SID")] Transaction transaction)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Email,Transaction_Amount,TO_Email,SID")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace E_Wallet.Controllers
 
         // GET: Transactions/Delete/5
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -111,11 +111,18 @@ namespace E_Wallet.Controllers
         }
 
         // POST: Transactions/Delete/5
-        [Authorize(Roles = "Admin")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Transaction transaction = await db.Transactions.FindAsync(id);
+            int x = transaction.Transaction_Amount;
+            String user = transaction.Email;
+            String user1 = transaction.TO_Email;
+            Wallet w = await db.Wallets.FindAsync(User);
+            Wallet w2 = await db.Wallets.FindAsync(user1);
+            w.Balance += x; // updating the balance
+            w2.Balance -= x; // updating the balance
             db.Transactions.Remove(transaction);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

@@ -163,6 +163,7 @@ namespace E_Wallet.Controllers
             {
                 new SelectListItem { Text = "Individual", Value = "Individual" },
                 new SelectListItem { Text = "Organization", Value = "Organization" },
+                new SelectListItem { Text = "Admin", Value = "Admin" },
             };
             ViewBag.rol = rList;
             return View();

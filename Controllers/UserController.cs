@@ -35,8 +35,9 @@ namespace E_Wallet.Controllers
         // POST: User/Pay
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Pay([Bind(Include = "Email,Transaction_Amount,TO_Email,SID")] Transaction transaction)
+        public async Task<ActionResult> Pay([Bind(Include = "ID,Transaction_Amount,TO_Email,SID")] Transaction transaction)
         {
+            transaction.Email = (String)Session["mail"];
             if (ModelState.IsValid)
             {
                 db.Transactions.Add(transaction);
@@ -46,6 +47,7 @@ namespace E_Wallet.Controllers
 
             return View(transaction);
         }
+
 
         // GET: User/Load
         public ActionResult Load()
