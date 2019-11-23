@@ -35,16 +35,33 @@ namespace E_Wallet.Controllers
         // POST: User/Pay
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Pay([Bind(Include = "ID,Transaction_Amount,TO_Email,SID")] Transaction transaction)
+        public async Task<ActionResult> Pay([Bind(Include = "ID,Email,Transaction_Amount,TO_Email,SID")] Transaction transaction)
         {
-            transaction.Email = (String)Session["mail"];
+            
             if (ModelState.IsValid)
             {
-                db.Transactions.Add(transaction);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                transaction.Email = (String)Session["mail"];
+                int x = transaction.Transaction_Amount;
+                String user = transaction.Email;
+                String user1 = transaction.TO_Email;
+                Wallet w = db.Wallets.Where(s => s.Email == user).FirstOrDefault<Wallet>();
+                Wallet w2 = db.Wallets.Where(s => s.Email == user1).FirstOrDefault<Wallet>();
+                if (w.Balance >= x)
+                {
+                    w.Balance -= x; // updating the balance
+                    w2.Balance += x; // updating the balance
+                    db.Transactions.Add(transaction);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Error = "Not Enough Balance";
+                    return View(transaction);
+                }
+                
             }
-
+            ViewBag.Error = "Not found email ";
             return View(transaction);
         }
 
@@ -61,9 +78,25 @@ namespace E_Wallet.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                // ammount to be loaded;
+                String ammount = Request.Form["Ammount"].ToString();
+                int am = Convert.ToInt32(ammount);
+                var mail = (String)Session["mail"];
+                var wallet = db.Wallets.Where(w => w.Email == mail).FirstOrDefault<Wallet>();
+                var Bank = db.Banks.Where(B => B.Account_Number == wallet.Account_Number).FirstOrDefault<Bank>();
 
-                return RedirectToAction("Index");
+                if (Bank.Balance >= am)
+                {
+                    wallet.Balance += am;
+                    Bank.Balance -= am;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+                
             }
             catch
             {
@@ -74,6 +107,14 @@ namespace E_Wallet.Controllers
         // GET: User/Link
         public ActionResult Link()
         {
+            List<SelectListItem> BList = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "Alpha Bank", Value = "Alpha Bank" },
+                new SelectListItem { Text = "Beta Bank", Value = "Beta Bank" },
+                new SelectListItem { Text = "Gamma Bank", Value = "Gamma Bank" },
+                new SelectListItem { Text = "Theta Bank", Value = "Theta Bank" },
+            };
+            ViewBag.Bank = BList;
             return View();
         }
 
@@ -83,8 +124,23 @@ namespace E_Wallet.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                List<SelectListItem> BList = new List<SelectListItem>()
+                {
+                    new SelectListItem { Text = "Alpha Bank", Value = "Alpha Bank" },
+                    new SelectListItem { Text = "Beta Bank", Value = "Beta Bank" },
+                    new SelectListItem { Text = "Gamma Bank", Value = "Gamma Bank" },
+                    new SelectListItem { Text = "Theta Bank", Value = "Theta Bank" },
+                };
+                ViewBag.Bank = BList;
+                String num = Request.Form["Phone-Number"].ToString();
+                var obj = db.Banks.Where(n => n.Phone_Number == num).FirstOrDefault<Bank>();
+                if (obj != null)
+                {
+                    String mail = (String)Session["mail"];
+                    var wallet = db.Wallets.Where(w => w.Email == mail).FirstOrDefault<Wallet>();
+                    wallet.Account_Number = obj.Account_Number;
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch

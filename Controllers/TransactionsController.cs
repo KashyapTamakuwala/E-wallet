@@ -119,8 +119,8 @@ namespace E_Wallet.Controllers
             int x = transaction.Transaction_Amount;
             String user = transaction.Email;
             String user1 = transaction.TO_Email;
-            Wallet w = await db.Wallets.FindAsync(User);
-            Wallet w2 = await db.Wallets.FindAsync(user1);
+            Wallet w = db.Wallets.Where(s => s.Email == user).FirstOrDefault<Wallet>();
+            Wallet w2 = db.Wallets.Where(s => s.Email == user1).FirstOrDefault<Wallet>();
             w.Balance += x; // updating the balance
             w2.Balance -= x; // updating the balance
             db.Transactions.Remove(transaction);

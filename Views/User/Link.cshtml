@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "User Home Page";
+}
+
+
+
+    <div>
+        @using (Html.BeginForm("Link", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <div class="form-group">
+                @Html.Label("Type", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10" style="margin-top:20px">
+                    @Html.DropDownList("BList", (IEnumerable<SelectListItem>)ViewBag.Bank, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    @Html.Label("Phone Number", new { @class = "control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBox("Phone-Number")
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register" />
+
+            </div>
+        }
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

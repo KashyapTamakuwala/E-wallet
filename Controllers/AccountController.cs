@@ -92,14 +92,13 @@ namespace E_Wallet.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-
             switch (result)
             {
                 case SignInStatus.Success:
                     ApplicationUser us = UserManager.FindByName(model.UserName);
                     string mail = us.Email;
                     Session["mail"] = mail;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "User");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -163,7 +162,6 @@ namespace E_Wallet.Controllers
             {
                 new SelectListItem { Text = "Individual", Value = "Individual" },
                 new SelectListItem { Text = "Organization", Value = "Organization" },
-                new SelectListItem { Text = "Admin", Value = "Admin" },
             };
             ViewBag.rol = rList;
             return View();
@@ -176,6 +174,13 @@ namespace E_Wallet.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            List<SelectListItem> rList = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "Individual", Value = "Individual" },
+                new SelectListItem { Text = "Organization", Value = "Organization" },
+            };
+            ViewBag.rol = rList;
+
             if (ModelState.IsValid)
             {
                 //
@@ -208,7 +213,7 @@ namespace E_Wallet.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "User");
                 }
                 AddErrors(result);
             }

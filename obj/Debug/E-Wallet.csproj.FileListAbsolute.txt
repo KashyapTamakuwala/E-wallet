@@ -203,8 +203,8 @@ D:\git\Wddnproject\E-wallet\E-wallet\bin\Microsoft.Owin.Security.Twitter.xml
 D:\git\Wddnproject\E-wallet\E-wallet\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\git\Wddnproject\E-wallet\E-wallet\bin\Microsoft.Owin.Security.OAuth.xml
 D:\git\Wddnproject\E-wallet\E-wallet\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.csprojAssemblyReference.cache
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.csproj.CoreCompileInputs.cache
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.csproj.CopyComplete
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.dll
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.pdb
+D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.csprojAssemblyReference.cache

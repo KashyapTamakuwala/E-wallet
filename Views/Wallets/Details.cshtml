@@ -1,34 +1,42 @@
 ﻿@model E_Wallet.Models.Wallet
 
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
 
-<div>
-    <h4>Wallet</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Account_Number)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Account_Number)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Email }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Wallet</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Account_Number)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Account_Number)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Balance)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Balance)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Email }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
