@@ -208,3 +208,9 @@ D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.csproj.CopyComplete
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.dll
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.pdb
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.csprojAssemblyReference.cache
+D:\git\Wddnproject\E-wallet\E-wallet\bin\zxing.dll
+D:\git\Wddnproject\E-wallet\E-wallet\bin\zxing.presentation.dll
+D:\git\Wddnproject\E-wallet\E-wallet\bin\zxing.pdb
+D:\git\Wddnproject\E-wallet\E-wallet\bin\zxing.xml
+D:\git\Wddnproject\E-wallet\E-wallet\bin\zxing.presentation.pdb
+D:\git\Wddnproject\E-wallet\E-wallet\bin\zxing.presentation.xml

@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Qrcodegen";
+}
+
+<h2>Qrcodegen</h2>
+
+@if (ViewBag.Qr != null)
+{
+    @:<img src="@Url.Content(ViewBag.Qr)" alt="image" width="100" height="100"/>
+}

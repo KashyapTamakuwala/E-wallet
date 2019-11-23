@@ -9,6 +9,10 @@ using System.Web;
 using System.Web.Mvc;
 using E_Wallet.Models;
 using Microsoft.AspNet.Identity;
+using System.IO;
+using ZXing;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace E_Wallet.Controllers
 {
@@ -148,5 +152,52 @@ namespace E_Wallet.Controllers
                 return View();
             }
         }
+
+        public ActionResult Qrcodegen()
+        {
+
+            try
+            {
+                String mail = (String)Session["mail"].ToString();
+                String path = GenerateQRCode(mail);
+                ViewBag.Qr = path;
+            }
+            catch (Exception ex)
+            {
+            }
+            return View();
+        }
+
+        //code to generate qrcode
+        private string GenerateQRCode(string qrcodeText)
+
+
+        {
+            string folderPath = "~/Images/";
+            string imagePath = "~/Images/QrCode.jpg";
+            // create new Directory if not exist
+            if (!Directory.Exists(Server.MapPath(folderPath)))
+            {
+                Directory.CreateDirectory(Server.MapPath(folderPath));
+            }
+
+            var barcodeWriter = new BarcodeWriter();
+            barcodeWriter.Format = BarcodeFormat.QR_CODE;
+            var result = barcodeWriter.Write(qrcodeText);
+
+            string barcodePath = Server.MapPath(imagePath);
+            var barcodeBitmap = new Bitmap(result);
+            using (MemoryStream memory = new MemoryStream())
+            {
+                using (FileStream fs = new FileStream(barcodePath, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    barcodeBitmap.Save(memory, ImageFormat.Jpeg);
+                    byte[] bytes = memory.ToArray();
+                    fs.Write(bytes, 0, bytes.Length);
+                }
+            }
+            return imagePath;
+        }
+
     }
 }
