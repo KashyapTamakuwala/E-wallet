@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "SPay";
+}
+
+<h2>SPay</h2>
+
+
+<style>
+    canvas {
+        display: none;
+    }
+
+    hr {
+        margin-top: 32px;
+    }
+    body {
+            margin: 25px;
+        }
+
+    div.polaroid {
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            margin-bottom: 25px;
+    }
+
+    div.container {
+            text-align: center;
+            padding: 10px 20px;
+    }
+
+    #second {
+        display:none;
+    }
+</style>
+
+<div class="container">
+    <h1>Scan from WebCam:</h1>
+</div>
+<div id="first" class="polaroid">
+    <div class="container">
+        <b>Device has camera: </b>
+        <span id="cam-has-camera"></span>
+        <br>
+        <video muted id="qr-video" style="width:200px;height:200px"></video>
+    </div>
+</div>
+<div class="container">
+    <b>Detected QR code: </b>
+    <span id="cam-qr-result">None</span>
+    <br>
+    <b>Last detected at: </b>
+    <span id="cam-qr-result-timestamp"></span>
+</div>
+<div id="second" class="polaroid form-horizontal">
+    <div class="container">
+        <form action="/user/SPay" method="post" id="myform">
+            <input type="hidden" id="hid" name="emval" value="" />
+            <label class="control-label">Amount to Pay</label>
+            <br />
+            <br />
+            <br />
+            <input type="number" id="amo" name="amou" class="form-control center-block" />
+            <br />
+            <br />
+            <br />
+            <label class="control-label">Scheme ID</label>
+            <br />
+            <br />
+            <br />
+            <input type="number" id="sid" name="sid" class="form-control center-block" />
+            <br />
+            <br />
+            <br />
+
+            <input type="submit" value="PAY" class="btn btn-default">
+        </form>
+    </div>
+</div>
+
+    <script type="module">
+        import QrScanner from "/Scripts/Custom/qr-scanner.min.js";
+        QrScanner.WORKER_PATH = '/Scripts/Custom/qr-scanner-worker.min.js';
+
+        const video = document.getElementById('qr-video');
+        const camHasCamera = document.getElementById('cam-has-camera');
+        const camQrResult = document.getElementById('cam-qr-result');
+        const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
+        const first = document.getElementById('first');
+        const second = document.getElementById('second');
+
+        function setResult(label, result) {
+            label.textContent = result;
+            document.getElementById("hid").value = result;
+            first.style.display = "none";
+            second.style.display = "block";
+            camQrResultTimestamp.textContent = new Date().toString();
+            label.style.color = 'teal';
+            clearTimeout(label.highlightTimeout);
+            label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
+        }
+
+        // ####### Web Cam Scanning #######
+
+        QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
+
+        const scanner = new QrScanner(video, result => setResult(camQrResult, result));
+        scanner.start();
+
+    </script>
+
+

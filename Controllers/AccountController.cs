@@ -98,7 +98,10 @@ namespace E_Wallet.Controllers
                     ApplicationUser us = UserManager.FindByName(model.UserName);
                     string mail = us.Email;
                     Session["mail"] = mail;
-                    return RedirectToAction("Index", "User");
+                    if(User.IsInRole("Admin"))
+                        return RedirectToAction("Index", "Admin");
+                    else
+                        return RedirectToAction("Index", "User");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -442,6 +445,7 @@ namespace E_Wallet.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
 

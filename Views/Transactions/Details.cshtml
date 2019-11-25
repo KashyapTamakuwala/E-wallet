@@ -4,45 +4,67 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<style>
+    body {
+        margin: 25px;
+    }
 
-<div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+    div.polaroid {
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 25px;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+    div.container {
+        text-align: center;
+        padding: inherit;
+    }
+</style>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Transaction_Amount)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Transaction_Amount)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TO_Email)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TO_Email)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SID)
-        </dt>
+<div class="polaroid">
+    <div class="container">
+        <h4>Transaction Details</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SID)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
-    </dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Transaction_Amount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Transaction_Amount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TO_Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TO_Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SID)
+            </dd>
+
+        </dl>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |

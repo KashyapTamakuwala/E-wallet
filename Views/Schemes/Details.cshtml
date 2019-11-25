@@ -3,32 +3,53 @@
 @{
     ViewBag.Title = "Details";
 }
+<style>
+    body {
+        margin: 25px;
+    }
 
-<h2>Details</h2>
+    div.polaroid {
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 25px;
+    }
 
-<div>
-    <h4>Scheme</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Minimum_Transaction)
-        </dt>
+    div.container {
+        text-align: center;
+        padding: inherit;
+    }
+</style>
 
-        <dd>
-            @Html.DisplayFor(model => model.Minimum_Transaction)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Refund)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Refund)
-        </dd>
 
-    </dl>
+<div class="polaroid">
+    <div class="container">
+        <h2>Details</h2>
+        <h4>Scheme</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Minimum_Transaction)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Minimum_Transaction)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Refund)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Refund)
+            </dd>
+
+        </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

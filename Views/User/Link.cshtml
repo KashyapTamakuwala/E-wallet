@@ -3,34 +3,54 @@
     ViewBag.Title = "User Home Page";
 }
 
+<style>
+    body {
+        margin: 25px;
+    }
+
+    div.polaroid {
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 25px;
+    }
+
+    div.container {
+        text-align: center;
+        padding: 10px 20px;
+    }
+</style>
+<div class="polaroid">
+    <div class="container">
 
 
-    <div>
-        @using (Html.BeginForm("Link", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            <div class="form-group">
-                @Html.Label("Type", new { @class = "col-md-2 control-label" })
-                <div class="col-md-10" style="margin-top:20px">
-                    @Html.DropDownList("BList", (IEnumerable<SelectListItem>)ViewBag.Bank, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-group">
-                    @Html.Label("Phone Number", new { @class = "control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBox("Phone-Number")
+        <div>
+            @using (Html.BeginForm("Link", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="form-group">
+                    @Html.Label("Type", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10" style="margin-top:20px">
+                        @Html.DropDownList("BList", (IEnumerable<SelectListItem>)ViewBag.Bank, new { @class = "form-control" })
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register" />
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.Label("Phone Number", new { @class = "control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBox("Phone-Number")
+                        </div>
+                    </div>
+                </div>
 
-            </div>
-        }
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register" />
+
+                </div>
+            }
+        </div>
     </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

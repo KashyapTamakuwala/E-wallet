@@ -22,15 +22,19 @@ namespace E_Wallet.Controllers
         private Model1 db = new Model1();
 
         // GET: User
-        //[Authorize(Roles= "Individual, Organization")]
+        [Authorize(Roles= "Individual, Organization")]
         public ActionResult Index()
         {
+            String mail = (String)Session["mail"].ToString();
+            var wa = db.Wallets.Where(w => w.Email.Equals(mail)).FirstOrDefault<Wallet>();
+            ViewBag.Balance = wa.Balance;
             return View();
         }
 
-        
+
 
         // GET: User/Pay
+        [Authorize(Roles = "Individual, Organization")]
         public ActionResult Pay()
         {
             return View();
@@ -39,11 +43,13 @@ namespace E_Wallet.Controllers
         // POST: User/Pay
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Pay([Bind(Include = "ID,Email,Transaction_Amount,TO_Email,SID")] Transaction transaction)
+        public async Task<ActionResult> Pay([Bind(Include = "ID,Transaction_Amount,TO_Email,SID")] Transaction transaction)
         {
-            
+            ModelState.Remove("Email");
             if (ModelState.IsValid)
-            {
+            { 
+                int flag = 0;
+                var tran = new Transaction();
                 transaction.Email = (String)Session["mail"];
                 int x = transaction.Transaction_Amount;
                 String user = transaction.Email;
@@ -54,6 +60,33 @@ namespace E_Wallet.Controllers
                 {
                     w.Balance -= x; // updating the balance
                     w2.Balance += x; // updating the balance
+
+                    if (transaction.SID > 0)
+                    {
+                        var sh = db.Schemes.Where(s => s.ID == transaction.SID).FirstOrDefault<Scheme>();
+                        if (x > sh.Minimum_Transaction)
+                        {
+                            
+                            tran.TO_Email = w.Email;
+                            transaction.Transaction_Amount = sh.Refund;
+                            tran.Email = "Tamakuwala365@gmail.com";
+                            tran.SID = 0;
+                            w.Balance += sh.Refund;
+                            flag = 1;
+                        }
+                        else
+                        {
+                            ViewBag.Error = "Mininmum Transaction of "+ sh
+                                .Minimum_Transaction+" Required ";
+                            return View(transaction);
+                        }
+
+                    }
+                    if (flag == 1)
+                    {
+                        db.Transactions.Add(tran);
+                    }
+
                     db.Transactions.Add(transaction);
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index");
@@ -71,6 +104,7 @@ namespace E_Wallet.Controllers
 
 
         // GET: User/Load
+        [Authorize(Roles = "Individual, Organization")]
         public ActionResult Load()
         {
             return View();
@@ -109,6 +143,7 @@ namespace E_Wallet.Controllers
         }
 
         // GET: User/Link
+        [Authorize(Roles = "Individual, Organization")]
         public ActionResult Link()
         {
             List<SelectListItem> BList = new List<SelectListItem>()
@@ -153,6 +188,7 @@ namespace E_Wallet.Controllers
             }
         }
 
+        [Authorize(Roles = "Individual, Organization")]
         public ActionResult Qrcodegen()
         {
 
@@ -164,6 +200,7 @@ namespace E_Wallet.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Exception  Message --->  ",ex.ToString());
             }
             return View();
         }
@@ -197,6 +234,65 @@ namespace E_Wallet.Controllers
                 }
             }
             return imagePath;
+        }
+
+        // Scan qr code
+        [Authorize(Roles = "Individual, Organization")]
+        public ActionResult SPay()
+        {
+            return View();
+        }
+
+        // Scan qr code
+        [Authorize(Roles = "Individual, Organization")]
+        [HttpPost]
+        public ActionResult SPay(String emval,int amou,int sid)
+        {
+            int flag = 0;
+            var tran = new Transaction();
+            var transaction = new Transaction();
+            transaction.Email = (String)Session["mail"].ToString();
+            transaction.TO_Email = emval;
+            transaction.Transaction_Amount = amou;
+            transaction.SID = sid;
+            var w = db.Wallets.Where(s => s.Email.Equals(transaction.Email)).FirstOrDefault<Wallet>();
+            var w2= db.Wallets.Where(s => s.Email.Equals(transaction.TO_Email)).FirstOrDefault<Wallet>();
+
+            if (w.Balance >= transaction.Transaction_Amount)
+            {
+                w.Balance -= transaction.Transaction_Amount;
+                w2.Balance += transaction.Transaction_Amount;
+
+                if (transaction.SID > 0)
+                {
+                    var sh = db.Schemes.Where(s => s.ID == transaction.SID).FirstOrDefault<Scheme>();
+                    if (transaction.Transaction_Amount > sh.Minimum_Transaction)
+                    {
+                        
+                        tran.TO_Email = w.Email;
+                        transaction.Transaction_Amount = sh.Refund;
+                        tran.Email = "Tamakuwala365@gmail.com";
+                        tran.SID = 0;
+                        w.Balance += sh.Refund;
+                        flag = 1;
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Mininmum Transaction of " + sh
+                            .Minimum_Transaction + " Required ";
+                        return View(transaction);
+                    }
+
+                }
+
+                if (flag == 1)
+                {
+                    db.Transactions.Add(tran);
+                }
+                db.Transactions.Add(transaction);
+                db.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
         }
 
     }
