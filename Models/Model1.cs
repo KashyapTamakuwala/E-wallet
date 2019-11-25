@@ -47,6 +47,7 @@ namespace E_Wallet.Models
     {
         [Key]
         [Required]
+        [EmailAddress]
         [Display(Name = "Email")]
         public String Email { get; set; }
 
@@ -70,6 +71,7 @@ namespace E_Wallet.Models
 
         [Required]
         [Display(Name = "Email")]
+        [EmailAddress]
         public String Email { get; set; }
 
         [Required]
@@ -78,6 +80,7 @@ namespace E_Wallet.Models
 
         [Required]
         [Display(Name = "TO_Email")]
+        [EmailAddress]
         public String TO_Email { get; set; }
 
         [Display(Name = "Scheme_ID")]
