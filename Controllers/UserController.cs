@@ -295,5 +295,13 @@ namespace E_Wallet.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public ActionResult STrans()
+        {
+            String mail = (String)Session["mail"].ToString();
+            var trans = db.Transactions.Where(tr => tr.Email.Equals(mail)).ToList();
+            return View(trans);
+        }
+
     }
 }
