@@ -295,13 +295,19 @@ namespace E_Wallet.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [Authorize(Roles = "Individual, Organization")]
         public ActionResult STrans()
         {
             String mail = (String)Session["mail"].ToString();
-            var trans = db.Transactions.Where(tr => tr.Email.Equals(mail)).ToList();
+            var trans = db.Transactions.Where(tr => tr.Email.Equals(mail) || tr.TO_Email.Equals(mail) ).ToList();
             return View(trans);
         }
 
+        [Authorize(Roles = "Individual, Organization")]
+        public ActionResult offers()
+        {
+            var ob = db.Schemes.ToList<Scheme>();
+            return View(ob);
+        }
     }
 }

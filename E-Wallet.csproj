@@ -311,6 +311,7 @@
     <Content Include="Views\Wallets\Index.cshtml" />
     <Content Include="Views\User\Load.cshtml" />
     <Content Include="Views\User\STrans.cshtml" />
+    <Content Include="Views\User\offers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
