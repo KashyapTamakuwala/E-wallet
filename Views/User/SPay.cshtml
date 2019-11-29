@@ -37,6 +37,15 @@
 
 <div class="container">
     <h1>Scan from WebCam:</h1>
+    @{
+        var txt = "";
+        if (ViewBag.Error != null)
+        {
+            txt = ViewBag.Error;
+
+        }
+    }
+    <h2 id="error" class="text-danger">@txt </h2>
 </div>
 <div id="first" class="polaroid">
     <div class="container">
@@ -89,12 +98,14 @@
         const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
         const first = document.getElementById('first');
         const second = document.getElementById('second');
+        document.getElementById('sid').value=0;
 
         function setResult(label, result) {
             label.textContent = result;
             document.getElementById("hid").value = result;
             first.style.display = "none";
             second.style.display = "block";
+            document.getElementById('error').value = "";
             camQrResultTimestamp.textContent = new Date().toString();
             label.style.color = 'teal';
             clearTimeout(label.highlightTimeout);

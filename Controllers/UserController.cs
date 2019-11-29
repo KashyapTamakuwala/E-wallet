@@ -268,7 +268,7 @@ namespace E_Wallet.Controllers
                     var sh = db.Schemes.Where(s => s.ID == transaction.SID).FirstOrDefault<Scheme>();
                     if (transaction.Transaction_Amount > sh.Minimum_Transaction)
                     {
-                        
+
                         tran.TO_Email = w.Email;
                         transaction.Transaction_Amount = sh.Refund;
                         tran.Email = "Tamakuwala365@gmail.com";
@@ -291,8 +291,15 @@ namespace E_Wallet.Controllers
                 }
                 db.Transactions.Add(transaction);
                 db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            else
+            {
+                ViewBag.Error = "Not Enough Balance ";
+                return View(transaction);
+            }
+
+            
         }
 
         [Authorize(Roles = "Individual, Organization")]
