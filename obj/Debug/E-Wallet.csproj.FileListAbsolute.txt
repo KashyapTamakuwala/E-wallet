@@ -152,6 +152,8 @@ D:\git\Wddnproject\E-wallet\E-wallet\bin\roslyn\vbc.exe.config
 D:\git\Wddnproject\E-wallet\E-wallet\bin\roslyn\vbc.rsp
 D:\git\Wddnproject\E-wallet\E-wallet\bin\roslyn\VBCSCompiler.exe
 D:\git\Wddnproject\E-wallet\E-wallet\bin\roslyn\VBCSCompiler.exe.config
+D:\git\Wddnproject\E-wallet\E-wallet\bin\E-Wallet.dll.CodeAnalysisLog.xml
+D:\git\Wddnproject\E-wallet\E-wallet\bin\E-Wallet.dll.lastcodeanalysissucceeded
 D:\git\Wddnproject\E-wallet\E-wallet\bin\Antlr3.Runtime.dll
 D:\git\Wddnproject\E-wallet\E-wallet\bin\EntityFramework.dll
 D:\git\Wddnproject\E-wallet\E-wallet\bin\EntityFramework.SqlServer.dll
@@ -213,4 +215,3 @@ D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.csproj.CoreCompileInputs
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.csproj.CopyComplete
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.dll
 D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.pdb
-D:\git\Wddnproject\E-wallet\E-wallet\obj\Debug\E-Wallet.csprojAssemblyReference.cache

@@ -200,7 +200,7 @@ namespace E_Wallet.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception  Message --->  ",ex.ToString());
+                String a = ex.ToString(); 
             }
             return View();
         }
